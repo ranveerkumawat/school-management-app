@@ -206,6 +206,10 @@ export default function App() {
     setStudents(students.map((s) => (s.id === id ? { ...s, feeStatus: newStatus, dues: newStatus === 'Paid' ? 0 : newDues || s.dues } : s)));
   };
 
+  const updateSalaryStatus = (id, newStatus) => {
+    setStaff(staff.map((s) => (s.id === id ? { ...s, salaryStatus: newStatus } : s)));
+  };
+
   const handleApprovePaper = (id) => {
     setPapers(papers.map((p) => (p.id === id ? { ...p, secureStatus: 'Approved' } : p)));
   };
@@ -265,6 +269,8 @@ export default function App() {
       status: student.feeStatus === 'Paid' ? 'Paid' : student.feeStatus,
       dueDate: '2026-06-30',
       notes: student.feeStatus === 'Overdue' ? 'Follow up required' : 'Auto billed',
+      guardian: student.guardian,
+      phone: student.phone,
     }));
 
     return payments.filter((payment) => {
@@ -606,6 +612,7 @@ export default function App() {
               onPaymentModeFilterChange={setPaymentModeFilter}
               overdueFilter={overdueFilter}
               onOverdueFilterChange={setOverdueFilter}
+              updateFeeStatus={updateFeeStatus}
             />
           )}
 
@@ -618,6 +625,7 @@ export default function App() {
               onPayrollStatusFilterChange={setPayrollStatusFilter}
               paymentDateFilter={paymentDateFilter}
               onPaymentDateFilterChange={setPaymentDateFilter}
+              updateSalaryStatus={updateSalaryStatus}
             />
           )}
 
